@@ -6,16 +6,16 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:16 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/07 09:03:42 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/07 09:15:06 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-Stack create_B_Stack(Stack A_Stack, int len)
+t_stack create_B_Stack(t_stack A_Stack, int len)
 {
-	Stack B_Stack = NULL;
+	t_stack B_Stack = NULL;
 	int mark;
 	
 	mark = len / 2 + len % 2;
@@ -37,7 +37,7 @@ Stack create_B_Stack(Stack A_Stack, int len)
 	return (B_Stack);
 }
 
-int step_2(Stack A_Stack, Stack B_Stack, int len)
+int step_2(t_stack A_Stack, t_stack B_Stack, int len)
 {
 	int mark;
 	int smaller;
@@ -71,7 +71,7 @@ int step_2(Stack A_Stack, Stack B_Stack, int len)
 	return (smaller);
 }
 
-void step_3(Stack A_Stack, Stack B_Stack, int smaller, int len)
+void step_3(t_stack A_Stack, t_stack B_Stack, int smaller, int len)
 {
 	int higher;
 	
@@ -106,7 +106,7 @@ void step_3(Stack A_Stack, Stack B_Stack, int smaller, int len)
 	putstr("pa\nra\n");
 }
 
-void	step_4(Stack A_Stack, int len)
+void	step_4(t_stack A_Stack, int len)
 {
 	int mark;
 	
@@ -118,9 +118,9 @@ void	step_4(Stack A_Stack, int len)
 	}
 } 
 
-Stack step_5(Stack A_Stack, int mark, int small)
+t_stack step_5(t_stack A_Stack, int mark, int small)
 {
-	Stack	B_Stack = NULL;
+	t_stack	B_Stack = NULL;
 	
 	while (A_Stack->begin->value <= mark)
 	{
@@ -140,7 +140,7 @@ Stack step_5(Stack A_Stack, int mark, int small)
 	return (B_Stack);
 }
 
-void step_6(Stack A_Stack, Stack B_Stack, int small, int high)
+void step_6(t_stack A_Stack, t_stack B_Stack, int small, int high)
 {
 	while (B_Stack->begin->next)
 	{
@@ -171,9 +171,9 @@ void step_6(Stack A_Stack, Stack B_Stack, int small, int high)
 	putstr("pa\nra\n");
 }
 
-Stack step_7(Stack A_Stack, int len)
+t_stack step_7(t_stack A_Stack, int len)
 {
-	Stack B_Stack = NULL;
+	t_stack B_Stack = NULL;
 	int mark;
 
 	mark = (len / 2 + len % 2);
@@ -231,8 +231,8 @@ int main(int ac, char **av)
 {
 	int		i = 1;
 	int		*nb;
-	Stack	A_Stack = NULL;
-	Stack	B_Stack = NULL;
+	t_stack	A_Stack = NULL;
+	t_stack	B_Stack = NULL;
 	int len;
 	int *index;
 	int smaller = 0;

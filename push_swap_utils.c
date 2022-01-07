@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:22 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/06 09:23:32 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/07 09:12:07 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_atoi(char *str)
 	return (sign * nb);
 }
 
-int	list_len(Stack A_Stack)
+int	list_len(t_stack A_Stack)
 {
 	int		len;
 	t_node	*temp;

@@ -6,20 +6,20 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 06:00:48 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/06 09:47:39 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/07 09:13:26 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_empty_list(Stack Stack)
+int	is_empty_list(t_stack Stack)
 {
 	if (Stack == NULL)
 		return (1);
 	return (0);
 }
 
-Stack	push_back(Stack Stack, int x)
+t_stack	push_back(t_stack Stack, int x)
 {
 	t_node	*element;
 
@@ -46,7 +46,7 @@ Stack	push_back(Stack Stack, int x)
 	return (Stack);
 }
 
-Stack	push_front(Stack Stack, int x)
+t_stack	push_front(t_stack Stack, int x)
 {
 	t_node	*element;
 
@@ -73,7 +73,7 @@ Stack	push_front(Stack Stack, int x)
 	return (Stack);
 }
 
-Stack	pop_back(Stack Stack)
+t_stack	pop_back(t_stack Stack)
 {
 	t_node	*temp;
 	//for linux
@@ -93,7 +93,7 @@ Stack	pop_back(Stack Stack)
 	return (Stack);
 }
 
-Stack	pop_front(Stack Stack)
+t_stack	pop_front(t_stack Stack)
 {
 	t_node	*temp;
 
