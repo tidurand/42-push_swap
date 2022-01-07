@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:16 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/06 11:23:33 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/07 09:03:42 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,90 @@ void	step_4(Stack A_Stack, int len)
 		rotate(A_Stack);
 		putstr("ra\n");
 	}
+} 
+
+Stack step_5(Stack A_Stack, int mark, int small)
+{
+	Stack	B_Stack = NULL;
+	
+	while (A_Stack->begin->value <= mark)
+	{
+		if (A_Stack->begin->value == small)
+		{
+			rotate(A_Stack);
+			putstr("ra\n");
+			small++;
+		}
+		else
+		{
+			B_Stack = push_front(B_Stack, A_Stack->begin->value);
+			pop_front(A_Stack);
+			putstr("pb\n");
+		}
+	}
+	return (B_Stack);
 }
 
-Stack 
+void step_6(Stack A_Stack, Stack B_Stack, int small, int high)
+{
+	while (B_Stack->begin->next)
+	{
+		if (B_Stack->begin->value == high)
+		{
+			A_Stack = push_front(A_Stack, B_Stack->begin->value);
+			pop_front(B_Stack);
+			putstr("pa\n");
+			high--;
+		}
+		else if (B_Stack->begin->value == small)
+		{
+			A_Stack = push_front(A_Stack, B_Stack->begin->value);
+			pop_front(B_Stack);
+			rotate(A_Stack);
+			putstr("pa\nra\n");
+			small++;
+		}
+		else
+		{
+			rotate(B_Stack);
+			putstr("rb\n");
+		}
+	}
+	A_Stack = push_front(A_Stack, B_Stack->begin->value);
+	rotate(A_Stack);
+	pop_back(B_Stack);
+	putstr("pa\nra\n");
+}
+
+Stack step_7(Stack A_Stack, int len)
+{
+	Stack B_Stack = NULL;
+	int mark;
+
+	mark = (len / 2 + len % 2);
+	mark = mark + (mark / 2 + mark % 2);
+	printf("MARK : %d\n", mark);
+	while (A_Stack->begin->value >= (len / 2 + len % 2))
+	{
+		if (A_Stack->begin->value >= mark)
+		{
+			rotate(A_Stack);
+			putstr("ra\n");
+		}
+		else
+		{
+			B_Stack = push_front(B_Stack, A_Stack->begin->value);
+			pop_front(A_Stack);
+			putstr("pb\n");
+		}
+	}
+	return (B_Stack);
+}
+
+/*void	step_8(Stack A_Stack, Stack B_Stack)
+{
+	
+}*/
 
 int	*value_to_index(int *nb, int len)
 {
@@ -155,6 +236,7 @@ int main(int ac, char **av)
 	int len;
 	int *index;
 	int smaller = 0;
+	int higher;
 
 	check_errors(av);
 	if (ac <= 1)
@@ -190,12 +272,19 @@ int main(int ac, char **av)
 		B_Stack = create_B_Stack(A_Stack, len);
 		smaller = step_2(A_Stack, B_Stack, (len / 2 + len % 2));
 		step_3(A_Stack, B_Stack, smaller, (len / 2 + len % 2));
-		B_Stack = NULL;
+		//B_Stack = NULL;
 		step_4(A_Stack, (len / 2 + len % 2));
-		B_Stack = step_5(A_Stack)
+		smaller = A_Stack->end->value + 1;
+		B_Stack = step_5(A_Stack, (len / 2 + len % 2), smaller);
+		smaller = A_Stack->end->value + 1;
+		higher = (len / 2 + len % 2);
+		step_6(A_Stack, B_Stack, smaller, higher);
+		step_4(A_Stack, len + 1);
+		/*moitie triee, fin en boucle*/
+		B_Stack = step_7(A_Stack, len);
+		//step_8(A_Stack, B_Stack);
 		print_list(A_Stack);
-		//if (B_Stack)
-		//	print_list(B_Stack);
+		print_list(B_Stack);
 	}
 	//print_list(A_Stack);
 	while (!is_empty_list(A_Stack))
