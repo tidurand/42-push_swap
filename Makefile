@@ -6,7 +6,7 @@
 #    By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/12 10:14:27 by tidurand          #+#    #+#              #
-#    Updated: 2022/01/07 07:41:27 by tidurand         ###   ########.fr        #
+#    Updated: 2022/01/09 08:57:02 by tidurand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRCS =	*.c
 
 OBJS = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra
 
 NAME = push_swap
 

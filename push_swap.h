@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:12 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/07 09:11:42 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/07 10:52:27 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ typedef struct s_stack
 }	*t_stack;
 
 //change list
-int is_empty_list(t_stack A_Stack);
-t_stack push_back(t_stack A_Stack, int x);
-t_stack push_front(t_stack Stack, int x);
-t_stack pop_back(t_stack Stack);
-t_stack pop_front(t_stack Stack);
+int		is_empty_list(t_stack A_Stack);
+t_stack	push_back(t_stack A_Stack, int x);
+t_stack	push_front(t_stack Stack, int x);
+t_stack	pop_back(t_stack Stack);
+t_stack	pop_front(t_stack Stack);
 //moves
-t_stack swap(t_stack Stack);
-t_stack rotate(t_stack Stack);
-t_stack reverse_rotate(t_stack Stack);
+t_stack	swap(t_stack Stack);
+t_stack	rotate(t_stack Stack);
+t_stack	reverse_rotate(t_stack Stack);
 void	push(t_stack Src_Stack, t_stack Dest_Stack);
 
 //errors
@@ -47,12 +47,12 @@ void	check_doubles(char **av);
 
 //tools
 void	putstr(char *s);
-int	ft_strcmp(char *s1, char *s2);
-int	ft_atoi(char *str);
-int	list_len(t_stack A_Stack);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_atoi(char *str);
+int		list_len(t_stack A_Stack);
 //char	**ft_split(char *s, char c);
-int	ft_intlen(int *tab);
-void print_list(t_stack A_Stack); //remove at the end
+int		ft_intlen(int *tab);
+void	print_list(t_stack A_Stack); //remove at the end
 
 /*void	push_swap_2(Stack Stack);
 void push_swap_3(Stack Stack);

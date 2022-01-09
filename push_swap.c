@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:16 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/07 09:15:06 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/09 10:03:49 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 t_stack create_B_Stack(t_stack A_Stack, int len)
 {
-	t_stack B_Stack = NULL;
-	int mark;
-	
+	t_stack	B_Stack = NULL;
+	int		mark;
+
 	mark = len / 2 + len % 2;
 	while (len > 0)
 	{
@@ -37,14 +37,11 @@ t_stack create_B_Stack(t_stack A_Stack, int len)
 	return (B_Stack);
 }
 
-int step_2(t_stack A_Stack, t_stack B_Stack, int len)
+int step_2(t_stack A_Stack, t_stack B_Stack, int len, int mark)
 {
-	int mark;
-	int smaller;
+	int	smaller;
 
-	mark = len / 2 + len % 2;
 	smaller = 1;
-	printf("MARK2 : %d\n", mark);
 	while (len > 0)
 	{
 		if (B_Stack->begin->value >= mark)
@@ -71,12 +68,8 @@ int step_2(t_stack A_Stack, t_stack B_Stack, int len)
 	return (smaller);
 }
 
-void step_3(t_stack A_Stack, t_stack B_Stack, int smaller, int len)
+void step_3(t_stack A_Stack, t_stack B_Stack, int smaller, int higher)
 {
-	int higher;
-	
-	higher = len / 2 + len % 2;
-	higher--;
 	while (B_Stack->begin->next)
 	{
 		if (B_Stack->begin->value == higher)
@@ -106,22 +99,19 @@ void step_3(t_stack A_Stack, t_stack B_Stack, int smaller, int len)
 	putstr("pa\nra\n");
 }
 
-void	step_4(t_stack A_Stack, int len)
+void	step_4(t_stack A_Stack)
 {
-	int mark;
-	
-	mark = len / 2 + len % 2;
-	while (A_Stack->end->value != mark - 1)
+	while (A_Stack->end->value + 1 == A_Stack->begin->value)
 	{
 		rotate(A_Stack);
 		putstr("ra\n");
 	}
-} 
+}
 
-t_stack step_5(t_stack A_Stack, int mark, int small)
+t_stack	step_5(t_stack A_Stack, int mark, int small)
 {
 	t_stack	B_Stack = NULL;
-	
+
 	while (A_Stack->begin->value <= mark)
 	{
 		if (A_Stack->begin->value == small)
@@ -171,17 +161,14 @@ void step_6(t_stack A_Stack, t_stack B_Stack, int small, int high)
 	putstr("pa\nra\n");
 }
 
-t_stack step_7(t_stack A_Stack, int len)
+t_stack step_7(t_stack A_Stack, int len34)
 {
-	t_stack B_Stack = NULL;
-	int mark;
+	t_stack	B_Stack;
 
-	mark = (len / 2 + len % 2);
-	mark = mark + (mark / 2 + mark % 2);
-	printf("MARK : %d\n", mark);
-	while (A_Stack->begin->value >= (len / 2 + len % 2))
+	B_Stack = NULL;
+	while (A_Stack->begin->value != 1)
 	{
-		if (A_Stack->begin->value >= mark)
+		if (A_Stack->begin->value >= len34)
 		{
 			rotate(A_Stack);
 			putstr("ra\n");
@@ -196,16 +183,42 @@ t_stack step_7(t_stack A_Stack, int len)
 	return (B_Stack);
 }
 
-/*void	step_8(Stack A_Stack, Stack B_Stack)
+void	step_8(t_stack A_Stack, t_stack B_Stack, int mark, int len34)
 {
-	
-}*/
+	while (A_Stack->end->value != mark)
+	{
+		reverse_rotate(A_Stack);
+		if (B_Stack->begin->value != len34 -1)
+		{
+			reverse_rotate(B_Stack);
+			putstr("rrr\n");
+		}
+		else
+		{
+			putstr("rra\n");
+		}
+	}
+}
+
+t_stack push_rest(t_stack A_Stack)
+{
+	t_stack	B_Stack;
+
+	B_Stack = NULL;
+	while (A_Stack->begin->value != 1)
+	{
+		B_Stack = push_front(B_Stack, A_Stack->begin->value);
+		pop_front(A_Stack);
+		putstr("pb\n");
+	}
+	return (B_Stack);
+}
 
 int	*value_to_index(int *nb, int len)
 {
-	int i;
-	int j;
-	int *index;
+	int	i;
+	int	j;
+	int	*index;
 
 	index = malloc(sizeof(int) * (len) + 4);
 	i = 0;
@@ -224,7 +237,7 @@ int	*value_to_index(int *nb, int len)
 		i++;
 	}
 	index[i] = '\0';
-	return(index);
+	return (index);
 }
 
 int main(int ac, char **av)
@@ -249,11 +262,14 @@ int main(int ac, char **av)
 	nb = malloc(sizeof(int) * (ac));
 	while (av[i])
 	{
-		nb[i-1] = ft_atoi(av[i]);
+		nb[i - 1] = ft_atoi(av[i]);
 		i++;
 	}
-	nb[i-1] = '\0';
+	nb[i - 1] = '\0';
 	len = ac - 1;
+	int len2 = len / 2 + len % 2;
+	int len14 = len2 / 2 + len2 % 2;
+	int len34 = 3*(len/4) + len % 4;
 	index = value_to_index(nb, len);
 	free(nb);
 	i = 0;
@@ -270,26 +286,34 @@ int main(int ac, char **av)
 	if (ac > 4)
 	{
 		B_Stack = create_B_Stack(A_Stack, len);
-		smaller = step_2(A_Stack, B_Stack, (len / 2 + len % 2));
-		step_3(A_Stack, B_Stack, smaller, (len / 2 + len % 2));
-		//B_Stack = NULL;
-		step_4(A_Stack, (len / 2 + len % 2));
+		smaller = step_2(A_Stack, B_Stack, len2, len14);
+		step_3(A_Stack, B_Stack, smaller, len14);
+		B_Stack = NULL;
+		step_4(A_Stack);
 		smaller = A_Stack->end->value + 1;
-		B_Stack = step_5(A_Stack, (len / 2 + len % 2), smaller);
+		B_Stack = step_5(A_Stack, len2, smaller);
 		smaller = A_Stack->end->value + 1;
-		higher = (len / 2 + len % 2);
+		higher = len2;
 		step_6(A_Stack, B_Stack, smaller, higher);
-		step_4(A_Stack, len + 1);
-		/*moitie triee, fin en boucle*/
-		B_Stack = step_7(A_Stack, len);
-		//step_8(A_Stack, B_Stack);
-		print_list(A_Stack);
-		print_list(B_Stack);
+		step_4(A_Stack);
+		int mark = A_Stack->end->value;
+		//moitie triee, fin en boucle
+		B_Stack = step_7(A_Stack, len34);
+		step_8(A_Stack, B_Stack, mark, len34);
+		step_6(A_Stack, B_Stack, mark + 1, B_Stack->begin->value);
+		step_4(A_Stack);
+		// 3/4 trie
+		//B_Stack = step_7(A_Stack, len + len2);
+		//step_8(A_Stack, B_Stack, len + len34);
+		//print_list(A_Stack);
+		//print_list(B_Stack);
+		//end
+		B_Stack = push_rest(A_Stack);
+		step_6(A_Stack, B_Stack,A_Stack->end->value + 1, len);
+		step_4(A_Stack);
 	}
 	//print_list(A_Stack);
 	while (!is_empty_list(A_Stack))
 		A_Stack = pop_back(A_Stack);
-	/*while (!is_empty_list(B_Stack))
-		B_Stack = pop_back(B_Stack); //remove at the end*/
 	return (0);
 }
