@@ -6,12 +6,11 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:16 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/09 10:03:49 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/09 11:50:52 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 t_stack create_B_Stack(t_stack A_Stack, int len)
 {
@@ -99,7 +98,7 @@ void step_3(t_stack A_Stack, t_stack B_Stack, int smaller, int higher)
 	putstr("pa\nra\n");
 }
 
-void	step_4(t_stack A_Stack)
+void	first_number_first(t_stack A_Stack)
 {
 	while (A_Stack->end->value + 1 == A_Stack->begin->value)
 	{
@@ -130,7 +129,7 @@ t_stack	step_5(t_stack A_Stack, int mark, int small)
 	return (B_Stack);
 }
 
-void step_6(t_stack A_Stack, t_stack B_Stack, int small, int high)
+void sort_and_empty_B(t_stack A_Stack, t_stack B_Stack, int small, int high)
 {
 	while (B_Stack->begin->next)
 	{
@@ -249,7 +248,6 @@ int main(int ac, char **av)
 	int len;
 	int *index;
 	int smaller = 0;
-	int higher;
 
 	check_errors(av);
 	if (ac <= 1)
@@ -289,28 +287,54 @@ int main(int ac, char **av)
 		smaller = step_2(A_Stack, B_Stack, len2, len14);
 		step_3(A_Stack, B_Stack, smaller, len14);
 		B_Stack = NULL;
-		step_4(A_Stack);
+		first_number_first(A_Stack);
 		smaller = A_Stack->end->value + 1;
 		B_Stack = step_5(A_Stack, len2, smaller);
 		smaller = A_Stack->end->value + 1;
-		higher = len2;
-		step_6(A_Stack, B_Stack, smaller, higher);
-		step_4(A_Stack);
-		int mark = A_Stack->end->value;
+		sort_and_empty_B(A_Stack, B_Stack, smaller, len2);
+		first_number_first(A_Stack);
+		int mark;
+		mark = A_Stack->end->value;
 		//moitie triee, fin en boucle
+		int this_len;
 		B_Stack = step_7(A_Stack, len34);
+		this_len = list_len(B_Stack);
 		step_8(A_Stack, B_Stack, mark, len34);
-		step_6(A_Stack, B_Stack, mark + 1, B_Stack->begin->value);
-		step_4(A_Stack);
+		sort_and_empty_B(A_Stack, B_Stack, mark + 1, B_Stack->begin->value);
+		first_number_first(A_Stack);
 		// 3/4 trie
 		//B_Stack = step_7(A_Stack, len + len2);
 		//step_8(A_Stack, B_Stack, len + len34);
 		//print_list(A_Stack);
 		//print_list(B_Stack);
 		//end
-		B_Stack = push_rest(A_Stack);
-		step_6(A_Stack, B_Stack,A_Stack->end->value + 1, len);
-		step_4(A_Stack);
+		int i = 3;
+		int j = 4;
+		while (1)
+		{
+			if (this_len < 15)
+			{
+				B_Stack = push_rest(A_Stack);
+				sort_and_empty_B(A_Stack, B_Stack,A_Stack->end->value + 1, len);
+				first_number_first(A_Stack);
+				break ;
+			}
+			else
+			{
+				i = i+j;
+				j = j*2;
+				len34 = (i*len) / j;
+				if (len % j != 0)
+					len34++;
+				mark = A_Stack->end->value;
+				B_Stack = step_7(A_Stack, len34);
+				this_len = list_len(B_Stack);
+				step_8(A_Stack, B_Stack, mark, len34);
+				sort_and_empty_B(A_Stack, B_Stack, mark + 1, B_Stack->begin->value);
+				first_number_first(A_Stack);
+			}
+		}
+		// if -15, if -200, if +200;
 	}
 	//print_list(A_Stack);
 	while (!is_empty_list(A_Stack))

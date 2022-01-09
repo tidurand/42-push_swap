@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:22 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/07 09:12:07 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/09 10:35:39 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	ft_atoi(char *str)
 	sign = 1;
 	nb = 0;
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r')
+	while (str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -92,22 +91,3 @@ int	ft_intlen(int *tab)
 	}
 	return (len);
 }
-
-
-/*int	*ft_intdup(int *tab)
-{
-	int	*dest;
-	int	i;
-
-	i = 0;
-	dest = malloc(sizeof(int) * (ft_intlen(tab) + 1));
-	if (dest == NULL)
-		return (NULL);
-	while (tab[i])
-	{
-		dest[i] = tab[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}*/
