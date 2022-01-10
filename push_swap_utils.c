@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:22 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/09 10:35:39 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/10 13:31:44 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ int	ft_atoi(char *str)
 	i = 0;
 	while (str[i] == ' ')
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign *= (-1);
+	if (str[i] == '-')
+		sign *= (-1);
+	if (str[i] == '-')
 		i++;
-	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb *= 10;

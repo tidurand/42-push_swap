@@ -6,65 +6,66 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:16 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/10 11:23:06 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/10 14:06:42 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack create_B_Stack(t_stack A_Stack, int len)
+t_stack	create_b_stack(t_stack a_stack, int len)
 {
-	t_stack	B_Stack = NULL;
+	t_stack	b_stack;
 	int		mark;
-	
+
+	b_stack = NULL;
 	mark = len / 2 + len % 2;
 	while (len > 0)
 	{
-		if (A_Stack->begin->value <= mark)
+		if (a_stack->begin->value <= mark)
 		{
-			B_Stack = push_front(B_Stack, A_Stack->begin->value);
-			pop_front(A_Stack);
+			b_stack = push_front(b_stack, a_stack->begin->value);
+			pop_front(a_stack);
 			putstr("pb\n");
 		}
 		else
 		{
-			rotate(A_Stack);
+			rotate(a_stack);
 			putstr("ra\n");
 		}
 		len--;
 	}
-	return (B_Stack);
+	return (b_stack);
 }
 
-int step_2(t_stack A_Stack, t_stack B_Stack, int len, int mark)
+int	presort(t_stack a_stack, t_stack b_stack, int len, int mark)
 {
 	int	smaller;
-	int len_B;
-	int temp;
+	int	len_b;
+	int	temp;
 
 	smaller = 1;
 	temp = len;
-	len_B = list_len(B_Stack);
-	while (len_B > 15)
+	len_b = list_len(b_stack);
+	while (len_b > 15)
 	{
 		while (len > 0)
 		{
-			if (B_Stack->begin->value >= mark)
+			if (b_stack->begin->value >= mark)
 			{
-				A_Stack = push_front(A_Stack, B_Stack->begin->value);
-				pop_front(B_Stack);
+				a_stack = push_front(a_stack, b_stack->begin->value);
+				pop_front(b_stack);
 				putstr("pa\n");
 			}
-			else if (B_Stack->begin->value == smaller)
+			else if (b_stack->begin->value == smaller)
 			{
-				A_Stack = push_front(A_Stack, B_Stack->begin->value);
-				pop_front(B_Stack);
+				a_stack = push_front(a_stack, b_stack->begin->value);
+				pop_front(b_stack);
 				smaller++;
 				putstr("pa\n");
-				rotate(A_Stack);
-				if (B_Stack->begin->value != smaller && B_Stack->begin->value < mark)
+				rotate(a_stack);
+				if (b_stack->begin->value != smaller && b_stack->begin->value < mark)
 				{
-					rotate(B_Stack);
+					rotate(b_stack);
 					putstr("rr\n");
 				}
 				else
@@ -72,176 +73,111 @@ int step_2(t_stack A_Stack, t_stack B_Stack, int len, int mark)
 			}
 			else
 			{
-				rotate(B_Stack);
+				rotate(b_stack);
 				putstr("rb\n");
 			}
 			len--;
 		}
-		len_B = list_len(B_Stack);
-		len = len_B;
+		len_b = list_len(b_stack);
+		len = len_b;
 		mark = mark - (mark / 2 + mark % 2);
 	}
 	return (smaller);
 }
 
-void step_3(t_stack A_Stack, t_stack B_Stack, int smaller, int higher)
+void	last_good_n_last(t_stack a_stack)
 {
-	while (B_Stack->begin->next)
+	while (a_stack->end->value + 1 == a_stack->begin->value)
 	{
-		if (B_Stack->begin->value == higher)
-		{
-			A_Stack = push_front(A_Stack, B_Stack->begin->value);
-			pop_front(B_Stack);
-			putstr("pa\n");
-			higher--;
-		}
-		else if (B_Stack->begin->value == smaller)
-		{
-			A_Stack = push_front(A_Stack, B_Stack->begin->value);
-			pop_front(B_Stack);
-			smaller++;
-			putstr("pa\n");
-			rotate(A_Stack);
-			if (B_Stack->begin->value != smaller && B_Stack->begin->value != higher)
-			{
-				rotate(B_Stack);
-				putstr("rr\n");
-			}
-			else
-				putstr("ra\n");
-		}
-		else
-		{
-			rotate(B_Stack);
-			putstr("rb\n");
-		}
-	}
-	A_Stack = push_front(A_Stack, B_Stack->begin->value);
-	rotate(A_Stack);
-	pop_back(B_Stack);
-	putstr("pa\nra\n");
-}
-
-void	first_number_first(t_stack A_Stack)
-{
-	while (A_Stack->end->value + 1 == A_Stack->begin->value)
-	{
-		rotate(A_Stack);
+		rotate(a_stack);
 		putstr("ra\n");
 	}
 }
 
-t_stack	step_5(t_stack A_Stack, int mark, int small)
+t_stack	step_5(t_stack a_stack, int mark, int small)
 {
-	t_stack	B_Stack = NULL;
+	t_stack	b_stack;
 
-	while (A_Stack->begin->value <= mark)
+	b_stack = NULL;
+	while (a_stack->begin->value <= mark)
 	{
-		if (A_Stack->begin->value == small)
+		if (a_stack->begin->value == small)
 		{
-			rotate(A_Stack);
+			rotate(a_stack);
 			putstr("ra\n");
 			small++;
 		}
 		else
 		{
-			B_Stack = push_front(B_Stack, A_Stack->begin->value);
-			pop_front(A_Stack);
+			b_stack = push_front(b_stack, a_stack->begin->value);
+			pop_front(a_stack);
 			putstr("pb\n");
 		}
 	}
-	return (B_Stack);
+	return (b_stack);
 }
 
-void sort_and_empty_B(t_stack A_Stack, t_stack B_Stack, int small, int high)
+void sort_and_empty_B(t_stack a_stack, t_stack b_stack, int small, int high)
 {
-	while (B_Stack->begin->next)
+	while (b_stack->begin->next)
 	{
-		if (B_Stack->begin->value == high)
-		{
-			A_Stack = push_front(A_Stack, B_Stack->begin->value);
-			pop_front(B_Stack);
-			putstr("pa\n");
-			high--;
-		}
-		else if (B_Stack->begin->value == small)
-		{
-			A_Stack = push_front(A_Stack, B_Stack->begin->value);
-			pop_front(B_Stack);
-			small++;
-			putstr("pa\n");
-			rotate(A_Stack);
-			if (B_Stack->begin->value != small && B_Stack->begin->value != high)
-			{
-				rotate(B_Stack);
-				putstr("rr\n");
-			}
-			else
-				putstr("ra\n");
-		}
-		else
-		{
-			rotate(B_Stack);
-			putstr("rb\n");
-		}
+		three_pos(a_stack, b_stack, &small, &high);
 	}
-	A_Stack = push_front(A_Stack, B_Stack->begin->value);
-	rotate(A_Stack);
-	pop_back(B_Stack);
+	a_stack = push_front(a_stack, b_stack->begin->value);
+	rotate(a_stack);
+	pop_back(b_stack);
 	putstr("pa\nra\n");
 }
 
-t_stack step_7(t_stack A_Stack, int len34)
+t_stack step_7(t_stack a_stack, int len34)
 {
-	t_stack	B_Stack;
+	t_stack	b_stack;
 
-	B_Stack = NULL;
-	while (A_Stack->begin->value != 1)
+	b_stack = NULL;
+	while (a_stack->begin->value != 1)
 	{
-		if (A_Stack->begin->value >= len34)
+		if (a_stack->begin->value >= len34)
 		{
-			rotate(A_Stack);
+			rotate(a_stack);
 			putstr("ra\n");
 		}
 		else
 		{
-			B_Stack = push_front(B_Stack, A_Stack->begin->value);
-			pop_front(A_Stack);
+			b_stack = push_front(b_stack, a_stack->begin->value);
+			pop_front(a_stack);
 			putstr("pb\n");
 		}
 	}
-	return (B_Stack);
+	return (b_stack);
 }
 
-void	step_8(t_stack A_Stack, t_stack B_Stack, int mark, int len34)
+void	bad_n_up(t_stack a_stack, t_stack b_stack, int mark, int len34)
 {
-	while (A_Stack->end->value != mark)
+	while (a_stack->end->value != mark)
 	{
-		reverse_rotate(A_Stack);
-		if (B_Stack->begin->value != len34 -1)
+		reverse_rotate(a_stack);
+		if (b_stack->begin->value != len34 -1)
 		{
-			reverse_rotate(B_Stack);
+			reverse_rotate(b_stack);
 			putstr("rrr\n");
 		}
 		else
-		{
 			putstr("rra\n");
-		}
 	}
 }
 
-t_stack push_rest(t_stack A_Stack)
+t_stack push_rest(t_stack a_stack)
 {
-	t_stack	B_Stack;
+	t_stack	b_stack;
 
-	B_Stack = NULL;
-	while (A_Stack->begin->value != 1)
+	b_stack = NULL;
+	while (a_stack->begin->value != 1)
 	{
-		B_Stack = push_front(B_Stack, A_Stack->begin->value);
-		pop_front(A_Stack);
+		b_stack = push_front(b_stack, a_stack->begin->value);
+		pop_front(a_stack);
 		putstr("pb\n");
 	}
-	return (B_Stack);
+	return (b_stack);
 }
 
 int	*value_to_index(int *nb, int len)
@@ -259,9 +195,7 @@ int	*value_to_index(int *nb, int len)
 		while (j < len)
 		{
 			if (nb[i] > nb[j] && nb[i] != nb[j])
-			{
 				index[i]++;
-			}
 			j++;
 		}
 		i++;
@@ -274,8 +208,8 @@ int main(int ac, char **av)
 {
 	int		i = 1;
 	int		*nb;
-	t_stack	A_Stack = NULL;
-	t_stack	B_Stack = NULL;
+	t_stack	a_stack = NULL;
+	t_stack	b_stack = NULL;
 	int len;
 	int *index;
 	int smaller = 0;
@@ -293,7 +227,7 @@ int main(int ac, char **av)
 	{
 		 mettre dans un tableau de char[nb chiffres int max] en boucle 
 	}*/
-	
+
 	while (av[i])
 	{
 		nb[i - 1] = ft_atoi(av[i]);
@@ -310,110 +244,107 @@ int main(int ac, char **av)
 	i = 0;
 	while (index[i])
 	{
-		A_Stack = push_back(A_Stack, index[i]);
+		a_stack = push_back(a_stack, index[i]);
 		i++;
 	}
 	free (index);
 	/*if (ac == 3)
-		push_swap_2(A_Stack);
+		push_swap_2(a_stack);
 	if (ac == 4)
-		push_swap_3(A_Stack);*/
+		push_swap_3(a_stack);*/
 	if (ac > 4)
 	{
 		//pretri
-		B_Stack = create_B_Stack(A_Stack, len);
-		smaller = step_2(A_Stack, B_Stack, len2, len14);
-		step_3(A_Stack, B_Stack, smaller, len14);
-		first_number_first(A_Stack);
+		b_stack = create_b_stack(a_stack, len);
+		smaller = presort(a_stack, b_stack, len2, len14);
+		sort_and_empty_B(a_stack, b_stack, smaller, len14);
+		last_good_n_last(a_stack);
 		//cut 1/8
 		if (len > 200)
 		{
 			int len18 = (len) / 8;
 			if (len % 8 != 0)
 				len18++;
-			smaller = A_Stack->end->value + 1;
-			B_Stack = step_5(A_Stack, len18, smaller);
-			smaller = A_Stack->end->value + 1;
-			this_len = list_len(B_Stack);
-			sort_and_empty_B(A_Stack, B_Stack, smaller, len18);
-			first_number_first(A_Stack);
+			smaller = a_stack->end->value + 1;
+			b_stack = step_5(a_stack, len18, smaller);
+			smaller = a_stack->end->value + 1;
+			this_len = list_len(b_stack);
+			sort_and_empty_B(a_stack, b_stack, smaller, len18);
+			last_good_n_last(a_stack);
 		}
 		//cut 1/4
-		smaller = A_Stack->end->value + 1;
-		B_Stack = step_5(A_Stack, len14, smaller);
-		smaller = A_Stack->end->value + 1;
-		this_len = list_len(B_Stack);
-		sort_and_empty_B(A_Stack, B_Stack, smaller, len14);
-		first_number_first(A_Stack);
-		//cut 3/8 doesnt work because not pre trie
-		/*if (len > 200)
+		smaller = a_stack->end->value + 1;
+		b_stack = step_5(a_stack, len14, smaller);
+		smaller = a_stack->end->value + 1;
+		this_len = list_len(b_stack);
+		sort_and_empty_B(a_stack, b_stack, smaller, len14);
+		last_good_n_last(a_stack);
+		//cut 3/8
+		int mark;
+		if (len > 200)
 		{
 			int len38 = (3*len) / 8;
 			if (len % 8 != 0)
 				len38++;
-			smaller = A_Stack->end->value + 1;
-			B_Stack = step_5(A_Stack, len38, smaller);
-			smaller = A_Stack->end->value + 1;
-			print_list(B_Stack);
-			this_len = list_len(B_Stack);
-			sort_and_empty_B(A_Stack, B_Stack, smaller, len38);
-			first_number_first(A_Stack);
-		}*/
+			mark = a_stack->end->value;
+			b_stack = step_7(a_stack, len38);
+			this_len = list_len(b_stack);
+			bad_n_up(a_stack, b_stack, mark, len38);
+			sort_and_empty_B(a_stack, b_stack, mark + 1, b_stack->begin->value);
+			last_good_n_last(a_stack);
+		}
 		//cut 1/2
-		smaller = A_Stack->end->value + 1;
-		B_Stack = step_5(A_Stack, len2, smaller);
-		smaller = A_Stack->end->value + 1;
-		this_len = list_len(B_Stack);
-		sort_and_empty_B(A_Stack, B_Stack, smaller, len2);
-		first_number_first(A_Stack);
-		//cut 5/8 doesnt work
-		int mark;
+		smaller = a_stack->end->value + 1;
+		b_stack = step_5(a_stack, len2, smaller);
+		smaller = a_stack->end->value + 1;
+		this_len = list_len(b_stack);
+		sort_and_empty_B(a_stack, b_stack, smaller, len2);
+		last_good_n_last(a_stack);
+		//cut 5/8
 		if (len > 200)
 		{
 			int len58 = (5*len) / 8;
 			if (len % 8 != 0)
 				len58++;
-			mark = A_Stack->end->value;
-			B_Stack = step_7(A_Stack, len58);
-			this_len = list_len(B_Stack);
-			step_8(A_Stack, B_Stack, mark, len58);
-			sort_and_empty_B(A_Stack, B_Stack, mark + 1, B_Stack->begin->value);
-			first_number_first(A_Stack);
+			mark = a_stack->end->value;
+			b_stack = step_7(a_stack, len58);
+			this_len = list_len(b_stack);
+			bad_n_up(a_stack, b_stack, mark, len58);
+			sort_and_empty_B(a_stack, b_stack, mark + 1, b_stack->begin->value);
+			last_good_n_last(a_stack);
 		}
 		//pretri de la deuxieme partie
 		//cut en boucle a partie de 3/4
-		
-		mark = A_Stack->end->value;
+		mark = a_stack->end->value;
 		int i = 1;
 		int j = 2;
 		while (1)
 		{
 			if (this_len < 15)
 			{
-				B_Stack = push_rest(A_Stack);
-				sort_and_empty_B(A_Stack, B_Stack,A_Stack->end->value + 1, len);
-				first_number_first(A_Stack);
+				b_stack = push_rest(a_stack);
+				sort_and_empty_B(a_stack, b_stack, a_stack->end->value + 1, len);
+				last_good_n_last(a_stack);
 				break ;
 			}
 			else
 			{
-				i = i+j;
-				j = j*2;
-				len34 = (i*len) / j;
+				i = i + j;
+				j = j * 2;
+				len34 = (i * len) / j;
 				if (len % j != 0)
 					len34++;
-				mark = A_Stack->end->value;
-				B_Stack = step_7(A_Stack, len34);
-				this_len = list_len(B_Stack);
-				step_8(A_Stack, B_Stack, mark, len34);
-				sort_and_empty_B(A_Stack, B_Stack, mark + 1, B_Stack->begin->value);
-				first_number_first(A_Stack);
+				mark = a_stack->end->value;
+				b_stack = step_7(a_stack, len34);
+				this_len = list_len(b_stack);
+				bad_n_up(a_stack, b_stack, mark, len34);
+				sort_and_empty_B(a_stack, b_stack, mark + 1, b_stack->begin->value);
+				last_good_n_last(a_stack);
 			}
 		}
 	}
-	//print_list(A_Stack);
-	while (!is_empty_list(A_Stack))
-		A_Stack = pop_back(A_Stack);
+	while (!is_empty_list(a_stack))
+		a_stack = pop_back(a_stack);
 	return (0);
 }
 

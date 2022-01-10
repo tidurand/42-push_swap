@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:12 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/09 12:17:01 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/10 13:43:59 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	putstr(char *s);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_atoi(char *str);
 int		list_len(t_stack A_Stack);
-//char	**ft_split(char *s, char c);
 int		ft_intlen(int *tab);
-void	print_list(t_stack A_Stack); //remove at the end
+
+void	three_pos(t_stack a_stack, t_stack b_stack, int *small, int *high);
 
 /*void	push_swap_2(Stack Stack);
 void push_swap_3(Stack Stack);
