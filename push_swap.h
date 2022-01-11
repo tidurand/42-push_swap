@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:12 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/10 15:58:29 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 06:07:34 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_atoi(char *str);
 int		list_len(t_stack A_Stack);
 int		ft_intlen(int *tab);
+int		ft_strlen(char *s);
 
 //shorter
 void	three_pos(t_stack a_stack, t_stack b_stack, int *small, int *high);
@@ -61,6 +62,7 @@ t_stack	create_b_stack(t_stack a_stack, int len);
 t_stack	push_b_section(t_stack a_stack, int mark, int small);
 t_stack	push_b_non_sort(t_stack a_stack, int len34);
 t_stack	push_rest(t_stack a_stack);
+t_stack push_all_except_one(t_stack a_stack);
 //sort
 int		presort(t_stack a_stack, t_stack b_stack, int len, int mark);
 void	last_good_n_last(t_stack a_stack);
@@ -69,6 +71,8 @@ void	bad_n_up(t_stack a_stack, t_stack b_stack, int mark, int len34);
 void	push_swap_2(t_stack Stack);
 void	push_swap_3(t_stack Stack);
 void	push_swap_3_next(t_stack Stack);
+void	push_swap_4(t_stack a_stack);
+void	push_swap_5(t_stack a_stack);
 /*Stack	put_b(Stack stack, int ac);
 int	smaller_first(Stack A_Stack);
 int	smaller(Stack A_Stack, int len);

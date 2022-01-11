@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:16 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/10 16:02:57 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 06:16:01 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,49 @@ int	*value_to_index(int *nb, int len)
 	return (index);
 }
 
+int	only_spaces(char *av)
+{
+	int i = 0;
+	while (av[i])
+	{
+		if (av[i] != ' ')
+		{
+			return 0;
+		}
+		i++;
+	}
+	return 1;
+}
+
+char	*ft_new_av(char *av)
+{
+	int i = 0;
+	while (av[i] == ' ')
+		i++;
+	while (av[i] != ' ' && av[i])
+	{
+		av[i] = ' ';
+		i++;
+	}
+	return (av);
+}
+
+int alone(char **av)
+{
+	int i;
+
+	i = 0;
+	if (av[2])
+		return 1;
+	while (av[1][i])
+	{
+		if (av[1][i] == ' ')
+			return 1;
+		i++;
+	}
+	return 0;
+}
+
 int main(int ac, char **av)
 {
 	int		i = 1;
@@ -46,21 +89,36 @@ int main(int ac, char **av)
 	int *index;
 	int smaller = 0;
 
-	check_errors(av);
-	if (ac <= 1)
+	if (ac <= 1 || alone(av) == 0)
 		return (0);
-	nb = malloc(sizeof(int) * (ac));
-	/*while (av[2])
+	if (ac > 2)
 	{
-		 mettre dans un tableau de char[nb chiffres int max] en boucle 
-	}*/
-
-	while (av[i])
-	{
-		nb[i - 1] = ft_atoi(av[i]);
-		i++;
+		check_errors(av);
+		nb = malloc(sizeof(int) * (ac));
+		while (av[i])
+		{
+			nb[i - 1] = ft_atoi(av[i]);
+			i++;
+		}
+		nb[i - 1] = '\0';
 	}
-	nb[i - 1] = '\0';
+	if (ac == 2)
+	{
+		//do check errors av[2]
+		nb = malloc(sizeof(int) * (ft_strlen(av[1])));
+		int u = 0;
+		while (av[1][u])
+		{
+			nb[u] = ft_atoi(av[1]);
+			av[1] = ft_new_av(av[1]);
+			u++;
+			if (only_spaces(av[1]) == 1)
+				break;
+		}
+		nb[u] = '\0';
+		ac = u + 1;
+	}
+
 	len = ac - 1;
 	int len2 = len / 2 + len % 2;
 	int len14 = len2 / 2 + len2 % 2;
@@ -75,11 +133,22 @@ int main(int ac, char **av)
 		i++;
 	}
 	free (index);
+	//check already trie
 	if (ac == 3)
 		push_swap_2(a_stack);
 	if (ac == 4)
 		push_swap_3(a_stack);
-	if (ac > 4)
+	if (ac == 5)
+		push_swap_4(a_stack);
+	if (ac == 6)
+		push_swap_5(a_stack);
+	if (ac <= 70 && ac > 6)
+	{
+		b_stack = push_all_except_one(a_stack);
+		sort_and_empty_b(a_stack, b_stack, 2, len);
+		last_good_n_last(a_stack);
+	}
+	if (ac > 70)
 	{
 		//pretri
 		b_stack = create_b_stack(a_stack, len);

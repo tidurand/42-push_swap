@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:22 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/10 13:31:44 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 06:07:13 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,18 @@ int	ft_intlen(int *tab)
 
 	len = 0;
 	while (tab[len])
+	{
+		len ++;
+	}
+	return (len);
+}
+
+int	ft_strlen(char *s)
+{
+	int	len;
+
+	len = 0;
+	while (s[len] != '\0')
 	{
 		len ++;
 	}

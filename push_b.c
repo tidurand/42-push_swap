@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:41:47 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/10 15:25:52 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 04:22:03 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,28 @@ t_stack	push_b_section(t_stack a_stack, int mark, int small)
 			b_stack = push_front(b_stack, a_stack->begin->value);
 			pop_front(a_stack);
 			putstr("pb\n");
+		}
+	}
+	return (b_stack);
+}
+
+t_stack push_all_except_one(t_stack a_stack)
+{
+	t_stack	b_stack;
+	
+	b_stack = NULL;
+	while (a_stack->begin->next)
+	{
+		if (a_stack->begin->value != 1)
+		{
+			b_stack = push_front(b_stack, a_stack->begin->value);
+			pop_front(a_stack);
+			putstr("pb\n");
+		}
+		else
+		{
+			rotate(a_stack);
+			putstr("ra\n");
 		}
 	}
 	return (b_stack);
