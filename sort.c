@@ -6,46 +6,43 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:42:28 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/11 08:32:25 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 10:53:24 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	elseif_2(t_stack a_stack, t_stack b_stack, int mark, int *small)
+{
+	a_stack = push_front(a_stack, b_stack->begin->value);
+	pop_front(b_stack);
+	(*small)++;
+	putstr("pa\n");
+	rotate(a_stack);
+	if (b_stack->begin->value != *small && b_stack->begin->value < mark)
+	{
+		rotate(b_stack);
+		putstr("rr\n");
+	}
+	else
+		putstr("ra\n");
+}
+
 int	presort(t_stack a_stack, t_stack b_stack, int len, int mark)
 {
 	int	smaller;
 	int	len_b;
-	int	temp;
 
 	smaller = 1;
-	temp = len;
 	len_b = list_len(b_stack);
 	while (len_b > 15)
 	{
 		while (len > 0)
 		{
 			if (b_stack->begin->value >= mark)
-			{
-				a_stack = push_front(a_stack, b_stack->begin->value);
-				pop_front(b_stack);
-				putstr("pa\n");
-			}
+				push_a(a_stack, b_stack);
 			else if (b_stack->begin->value == smaller)
-			{
-				a_stack = push_front(a_stack, b_stack->begin->value);
-				pop_front(b_stack);
-				smaller++;
-				putstr("pa\n");
-				rotate(a_stack);
-				if (b_stack->begin->value != smaller && b_stack->begin->value < mark)
-				{
-					rotate(b_stack);
-					putstr("rr\n");
-				}
-				else
-					putstr("ra\n");
-			}
+				elseif_2(a_stack, b_stack, mark, &smaller);
 			else
 			{
 				rotate(b_stack);

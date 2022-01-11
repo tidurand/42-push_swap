@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:12 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/11 08:32:39 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 12:10:05 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_stack	swap(t_stack Stack);
 t_stack	rotate(t_stack Stack);
 t_stack	reverse_rotate(t_stack Stack);
 void	push(t_stack Src_Stack, t_stack Dest_Stack);
+void	push_a(t_stack a_stack, t_stack b_stack);
 
 //errors
 void	check_errors(char **av);
@@ -59,6 +60,7 @@ int		ft_strlen(char *s);
 void	three_pos(t_stack a_stack, t_stack b_stack, int *small, int *high);
 void	cut_1(t_stack a_stack, t_stack b_stack, int *small, int len);
 int		cut_2(t_stack a_stack, t_stack b_stack, int mark, int len);
+void	elseif(t_stack a_stack, t_stack b_stack, int *small, int *high);
 //push_b
 t_stack	create_b_stack(t_stack a_stack, int len);
 t_stack	push_b_section(t_stack a_stack, int mark, int small);
@@ -75,9 +77,19 @@ void	push_swap_2(t_stack Stack);
 void	push_swap_3(t_stack Stack);
 void	push_swap_3_next(t_stack Stack);
 void	push_swap_4(t_stack a_stack);
+void	push_swap_4_next(t_stack a_stack, t_stack b_stack);
 void	push_swap_5(t_stack a_stack);
+void	push_swap_5_next(t_stack a_stack, t_stack b_stack);
 
 int		*value_to_index(int *nb, int len);
 void	end_loop(t_stack a_stack, int this_len, int len);
+int		only_spaces(char *av);
+char	*ft_new_av(char *av);
+int		alone(char **av);
+void	cut_18(t_stack a_stack, t_stack b_stack, int *small, int len);
+int		cut_38(t_stack a_stack, t_stack b_stack, int len);
+int		cut_58(t_stack a_stack, t_stack b_stack, int len, int *this_len);
+int		already_sort(t_stack a_stack);
+int		*value_to_index(int *nb, int len);
 
 #endif

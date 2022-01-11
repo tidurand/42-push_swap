@@ -6,11 +6,40 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 08:23:50 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/11 07:17:27 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 12:03:09 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	*value_to_index(int *nb, int len)
+{
+	int	i;
+	int	j;
+	int	*index;
+
+	index = malloc(sizeof(int) * (len) + 4);
+	if (index == NULL)
+	{
+		free(nb);
+		exit(EXIT_FAILURE);
+	}
+	i = 0;
+	while (i < len)
+	{
+		index[i] = 1;
+		j = 0;
+		while (j < len)
+		{
+			if (nb[i] > nb[j] && nb[i] != nb[j])
+				index[i]++;
+			j++;
+		}
+		i++;
+	}
+	index[i] = '\0';
+	return (index);
+}
 
 void	check_errors(char **av)
 {

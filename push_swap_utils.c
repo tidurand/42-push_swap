@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:22 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/11 07:13:30 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 10:44:30 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,6 @@ int	ft_atoi(char *str)
 		i++;
 	}
 	return (sign * nb);
-}
-
-int	list_len(t_stack A_Stack)
-{
-	int		len;
-	t_node	*temp;
-
-	temp = A_Stack->begin;
-	len = 1;
-	while (temp->next)
-	{
-		len++;
-		temp = temp->next;
-	}
-	return (len);
 }
 
 int	ft_strcmp(char *s1, char *s2)
