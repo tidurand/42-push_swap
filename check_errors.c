@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 08:23:50 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/11 12:03:09 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 12:14:51 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	check_errors_2(char *av)
 			exit(EXIT_FAILURE);
 		}
 		i++;
+		while (av[i] == ' ')
+			i++;
 	}
 }
 
