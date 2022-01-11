@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 08:23:50 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/06 06:59:44 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 07:17:27 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,45 @@ void	check_doubles(char **av)
 	}
 }
 
-/*char	**new_av(char *av)
+void	check_errors_2(char *av)
 {
-	char **str;
+	int	i;
 
-	str = ft_split(av, ' ');
-	return (str);
-}*/
+	i = 0;
+	while (av[i])
+	{
+		while (av[i] == ' ')
+			i++;
+		if (av[i] == '-')
+			i++;
+		if (!(av[i] >= '0' && av[i] <= '9'))
+		{
+			putstr("Error\n");
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+}
+
+void	check_doubles_2(int *nb)
+{
+	int	i;
+	int	i2;
+
+	i = 0;
+	while (nb[i])
+	{
+		i2 = i + 1;
+		while (nb[i2])
+		{
+			if (nb[i] - nb[i2] == 0)
+			{
+				putstr("Error\n");
+				free(nb);
+				exit(EXIT_FAILURE);
+			}
+			i2++;
+		}
+		i++;
+	}
+}

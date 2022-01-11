@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 09:05:53 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/11 05:07:44 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 07:20:08 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	push_swap_3_next(t_stack Stack)
 
 void	push_swap_4(t_stack a_stack)
 {
-	t_stack b_stack;
-	
+	t_stack	b_stack;
+
 	b_stack = NULL;
 	b_stack = push_front(b_stack, a_stack->begin->value);
 	pop_front(a_stack);
@@ -106,9 +106,9 @@ void	push_swap_4(t_stack a_stack)
 
 void	push_swap_5(t_stack a_stack)
 {
-	t_stack b_stack;
-	int small;
-	
+	t_stack	b_stack;
+	int		small;
+
 	b_stack = NULL;
 	small = 1;
 	b_stack = push_front(b_stack, 0);

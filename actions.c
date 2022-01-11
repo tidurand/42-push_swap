@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 06:00:48 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/07 09:13:26 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 07:16:59 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,8 @@ t_stack	push_front(t_stack Stack, int x)
 t_stack	pop_back(t_stack Stack)
 {
 	t_node	*temp;
-	//for linux
-	/*if (!(Stack->begin == Stack->end))
-		temp = Stack->end;
-	if (temp->back && (Stack->begin == Stack->end))
-		free(temp->back);*/
-	temp = Stack->end; //for mac
+
+	temp = Stack->end;
 	if (Stack->begin == Stack->end)
 	{
 		free(Stack);

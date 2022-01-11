@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:14:16 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/11 06:16:01 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 09:01:50 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,25 @@ int	*value_to_index(int *nb, int len)
 
 int	only_spaces(char *av)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (av[i])
 	{
 		if (av[i] != ' ')
 		{
-			return 0;
+			return (0);
 		}
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 char	*ft_new_av(char *av)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (av[i] == ' ')
 		i++;
 	while (av[i] != ' ' && av[i])
@@ -63,77 +67,50 @@ char	*ft_new_av(char *av)
 	return (av);
 }
 
-int alone(char **av)
+int	alone(char **av)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (av[2])
-		return 1;
+		return (1);
 	while (av[1][i])
 	{
 		if (av[1][i] == ' ')
-			return 1;
+			return (1);
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
-int main(int ac, char **av)
+int	already_sort(t_stack a_stack)
 {
-	int		i = 1;
-	int		*nb;
-	t_stack	a_stack = NULL;
-	t_stack	b_stack = NULL;
-	int		len;
-	int *index;
-	int smaller = 0;
+	t_node	*temp;
 
-	if (ac <= 1 || alone(av) == 0)
+	temp = a_stack->begin;
+	if (a_stack->begin->value != 1)
 		return (0);
-	if (ac > 2)
+	while (temp->next)
 	{
-		check_errors(av);
-		nb = malloc(sizeof(int) * (ac));
-		while (av[i])
-		{
-			nb[i - 1] = ft_atoi(av[i]);
-			i++;
-		}
-		nb[i - 1] = '\0';
+		if (temp->value != temp->next->value - 1)
+			return (0);
+		temp = temp-> next;
 	}
-	if (ac == 2)
-	{
-		//do check errors av[2]
-		nb = malloc(sizeof(int) * (ft_strlen(av[1])));
-		int u = 0;
-		while (av[1][u])
-		{
-			nb[u] = ft_atoi(av[1]);
-			av[1] = ft_new_av(av[1]);
-			u++;
-			if (only_spaces(av[1]) == 1)
-				break;
-		}
-		nb[u] = '\0';
-		ac = u + 1;
-	}
+	return (1);
+}
 
+void	all_cases(int ac, t_stack a_stack)
+{
+	int smaller = 0;
+	t_stack	b_stack = NULL;
+	int len;
+	
 	len = ac - 1;
 	int len2 = len / 2 + len % 2;
 	int len14 = len2 / 2 + len2 % 2;
-	int len34 = 3 * (len / 4) + len % 4;
 	int this_len;
-	index = value_to_index(nb, len);
-	free(nb);
-	i = 0;
-	while (index[i])
-	{
-		a_stack = push_back(a_stack, index[i]);
-		i++;
-	}
-	free (index);
-	//check already trie
+	if (already_sort(a_stack) == 1)
+		ac = 0;
 	if (ac == 3)
 		push_swap_2(a_stack);
 	if (ac == 4)
@@ -161,11 +138,9 @@ int main(int ac, char **av)
 			int len18 = (len) / 8;
 			if (len % 8 != 0)
 				len18++;
-			smaller = a_stack->end->value + 1;
 			cut_1(a_stack, b_stack, &smaller, len18);
 		}
 		//cut 1/4
-		smaller = a_stack->end->value + 1;
 		cut_1(a_stack, b_stack, &smaller, len14);
 		//cut 3/8
 		int mark;
@@ -193,34 +168,77 @@ int main(int ac, char **av)
 			mark = a_stack->end->value;
 			this_len = cut_2(a_stack, b_stack, mark, len58);
 		}
-		//cut en boucle a partie de 3/4
-		mark = a_stack->end->value;
-		int i = 1;
-		int j = 2;
-		while (1)
-		{
-			if (this_len < 15)
-			{
-				b_stack = push_rest(a_stack);
-				sort_and_empty_b(a_stack, b_stack, a_stack->end->value + 1, len);
-				last_good_n_last(a_stack);
-				break ;
-			}
-			else
-			{
-				i = i + j;
-				j = j * 2;
-				len34 = (i * len) / j;
-				if (len % j != 0)
-					len34++;
-				mark = a_stack->end->value;
-				this_len = cut_2(a_stack, b_stack, mark, len34);
-			}
-		}
+		//cut en boucle a partir de 3/4
+		end_loop(a_stack, this_len, len);
 	}
+}
+
+int	*parsing_1(char **av, int ac)
+{
+	int i;
+	int *nb;
+
+	i = 1;
+	check_errors(av);
+	nb = malloc(sizeof(int) * (ac));
+	while (av[i])
+	{
+		nb[i - 1] = ft_atoi(av[i]);
+		i++;
+	}
+	nb[i - 1] = '\0';
+	return (nb);
+}
+
+int	*parsing_2(char **av, int *ac)
+{
+	int *nb;
+	int i;
+
+	i = 0;
+	check_errors_2(av[1]);
+	nb = malloc(sizeof(int) * (ft_strlen(av[1])));
+	while (av[1][i])
+	{
+		nb[i] = ft_atoi(av[1]);
+		av[1] = ft_new_av(av[1]);
+		i++;
+		if (only_spaces(av[1]) == 1)
+			break;
+	}
+	nb[i] = '\0';
+	*ac = i + 1;
+	check_doubles_2(nb);
+	return (nb);
+}
+
+int main(int ac, char **av)
+{
+	t_stack	a_stack = NULL;
+	int		i;
+	int		*nb;
+	int		*index;
+
+	i = 0;
+	if (ac <= 1 || alone(av) == 0)
+		return (0);
+	if (ac > 2)
+		nb = parsing_1(av, ac);
+	if (ac == 2)
+		nb = parsing_2(av, &ac);
+	index = value_to_index(nb, ac - 1);
+	free(nb);
+	while (index[i])
+	{
+		a_stack = push_back(a_stack, index[i]);
+		i++;
+	}
+	free(index);
+	all_cases(ac, a_stack);
 	while (!is_empty_list(a_stack))
 		a_stack = pop_back(a_stack);
 	return (0);
 }
 
 //-8 doesnt work
+//PROTEGER LES MALLOC

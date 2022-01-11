@@ -6,7 +6,7 @@
 /*   By: tidurand <tidurand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 13:39:40 by tidurand          #+#    #+#             */
-/*   Updated: 2022/01/10 16:05:11 by tidurand         ###   ########.fr       */
+/*   Updated: 2022/01/11 08:32:43 by tidurand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void	three_pos(t_stack a_stack, t_stack b_stack, int *small, int *high)
 
 void	cut_1(t_stack a_stack, t_stack b_stack, int *small, int len)
 {
+	*small = a_stack->end->value + 1;
 	b_stack = push_b_section(a_stack, len, *small);
 	*small = a_stack->end->value + 1;
 	sort_and_empty_b(a_stack, b_stack, *small, len);
-	last_good_n_last(a_stack);
+	//cdlast_good_n_last(a_stack);
 }
 
 int	cut_2(t_stack a_stack, t_stack b_stack, int mark, int len)
@@ -62,5 +63,3 @@ int	cut_2(t_stack a_stack, t_stack b_stack, int mark, int len)
 	last_good_n_last(a_stack);
 	return (this_len);
 }
-
-//fct make good len
