@@ -80,6 +80,7 @@ t_stack	pop_back(t_stack Stack)
 	temp = Stack->end;
 	if (Stack->begin == Stack->end)
 	{
+		free(temp);
 		free(Stack);
 		return (NULL);
 	}

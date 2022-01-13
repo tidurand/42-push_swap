@@ -21,19 +21,10 @@ t_stack	swap(t_stack Stack)
 		return (Stack);
 	temp = Stack->begin->value;
 	temp2 = Stack->begin->next->value;
-	if (Stack->begin->next->next)
-	{
-		Stack->begin = Stack->begin->next->next;
-		push_front(Stack, temp);
-		push_front(Stack, temp2);
-	}
-	else
-	{
-		push_front(Stack, temp);
-		push_front(Stack, temp2);
-		pop_back(Stack);
-		pop_back(Stack);
-	}
+	push_front(Stack, temp);
+	push_front(Stack, temp2);
+	pop_back(Stack);
+	pop_back(Stack);
 	return (Stack);
 }
 
